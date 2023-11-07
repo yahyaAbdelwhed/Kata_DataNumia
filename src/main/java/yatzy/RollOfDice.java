@@ -12,7 +12,9 @@ import java.util.stream.Collectors;
  */
 public class RollOfDice {
 
-    private List<Integer> dice;
+    private static final List<Integer> LARGEST_LIST = Arrays.asList(2, 3, 4, 5, 6);
+	private static final List<Integer> SMALL_LIST = Arrays.asList(1, 2, 3, 4, 5);
+	private List<Integer> dice;
 
     /**
      * Constructor for the RollOfDice class.
@@ -20,7 +22,7 @@ public class RollOfDice {
      * @param diceRoll An array of integers representing the values of the dice.
      */
     public RollOfDice(int... diceRoll) {
-        this.dice = Arrays.stream(diceRoll).boxed().sorted().collect(Collectors.toList());
+        this.dice = Arrays.stream(diceRoll).boxed().collect(Collectors.toList());
     }
 
     /**
@@ -83,7 +85,8 @@ public class RollOfDice {
      * @return true if it's a small straight, otherwise false.
      */
     boolean isSmallStraight() {
-        return this.dice.equals(Arrays.asList(1, 2, 3, 4, 5));
+    	Collections.sort(dice);
+        return SMALL_LIST.equals(this.dice);
     }
 
     /**
@@ -92,7 +95,8 @@ public class RollOfDice {
      * @return true if it's a large straight, otherwise false.
      */
     boolean isLargeStraight() {
-        return this.dice.equals(Arrays.asList(2, 3, 4, 5, 6));
+    	Collections.sort(dice);
+    	return LARGEST_LIST.equals(this.dice);
     }
 
     /**
